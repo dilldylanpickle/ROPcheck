@@ -130,7 +130,7 @@ find_gadgets() {
         gadget=$(ROPgadget --binary "$file" --only "pop|ret" | grep "pop $reg ; ret" | cut -d' ' -f1)
         if [ -n "$gadget" ]; then
             if [ "$gadgets_found" = false ]; then
-                printf "[*] rop gadgets\n"
+                printf "[*] These rop gadgets were found in %s\n" "${file##*/}"
                 gadgets_found=true
             fi
             printf "pop %s address: %27s\n" "$reg" "$gadget"
@@ -138,7 +138,7 @@ find_gadgets() {
     done
     
     if [ "$gadgets_found" = false ]; then
-        printf "no rop gadgets found\n"
+        printf "[*] No useful rop gadgets found in %s\n" "${file##*/}"
     fi
 }
 
