@@ -1,7 +1,7 @@
 # ROPcheck
 
 ROPcheck is a tool written in bash that helps with identifying useful addresses like libc, system, /bin/sh, etc.
-(Currently only supported on Ubuntu 20.04)
+(Currently only supported on Ubuntu 20.04 and Arch Linux Distributions)
 
 ## Installation
 
