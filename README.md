@@ -1,6 +1,7 @@
 # ROPcheck
 
-ROPcheck is a Bash script that helps with identifying useful ROP gadgets in ELF binaries.
+ROPcheck is a Bash script that helps with identifying useful ROP gadgets in ELF binaries.  
+(Currently only supported on Ubuntu 20.04)
 
 ## Installation
 
