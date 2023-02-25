@@ -53,10 +53,24 @@ find_system() {
 
     case $bitness in
         "32-bit")
-            system=$(readelf -s /lib32/libc.so.6 | grep system | awk '/system/{line=$4} END{print $2}')
+            if [ -e "/lib32/libc.so.6" ]; then
+                system=$(readelf -s /lib32/libc.so.6 | grep system | awk '/system/{line=$4} END{print $2}')
+            elif [ -e "/usr/lib32/libc.so.6" ]; then
+                system=$(readelf -s /usr/lib32/libc.so.6 | grep system | awk '/system/{line=$4} END{print $2}')
+            else
+                echo "Error: libc.so.6 not found in /lib32 or /usr/lib32"
+                return 1
+            fi
             ;;
         "64-bit")
-            system=$(readelf -s /lib/x86_64-linux-gnu/libc.so.6 | grep system | awk '/system/{line=$4} END{print $2}')
+            if [ -e "/lib/x86_64-linux-gnu/libc.so.6" ]; then
+                system=$(readelf -s /lib/x86_64-linux-gnu/libc.so.6 | grep system | awk '/system/{line=$4} END{print $2}')
+            elif [ -e "/usr/lib64/libc.so.6" ]; then
+                system=$(readelf -s /usr/lib64/libc.so.6 | grep system | awk '/system/{line=$4} END{print $2}')
+            else
+                echo "Error: libc.so.6 not found in /lib/x86_64-linux-gnu or /usr/lib64"
+                return 1
+            fi
             ;;
         *)
             echo "Error: $file is not a 32-bit or 64-bit binary"
@@ -84,10 +98,24 @@ find_binsh() {
 
     case $bitness in
         "32-bit")
-            binsh=$(strings -a -t x /lib32/libc.so.6 | grep /bin/sh | awk '/system/{line=$4} END{print $1}')
+            if [ -e "/lib32/libc.so.6" ]; then
+                binsh=$(strings -a -t x /lib32/libc.so.6 | grep /bin/sh | awk '/system/{line=$4} END{print $1}')
+            elif [ -e "/usr/lib32/libc.so.6" ]; then
+                binsh=$(strings -a -t x /usr/lib32/libc.so.6 | grep /bin/sh | awk '/system/{line=$4} END{print $1}')
+            else
+                echo "Error: libc.so.6 not found in /lib32 or /usr/lib32"
+                return 1
+            fi
             ;;
         "64-bit")
-            binsh=$(strings -a -t x /lib/x86_64-linux-gnu/libc.so.6 | grep /bin/sh | awk '/system/{line=$4} END{print $1}')
+            if [ -e "/lib/x86_64-linux-gnu/libc.so.6" ]; then
+                binsh=$(strings -a -t x /lib/x86_64-linux-gnu/libc.so.6 | grep /bin/sh | awk '/system/{line=$4} END{print $1}')
+            elif [ -e "/usr/lib64/libc.so.6" ]; then
+                binsh=$(strings -a -t x /usr/lib64/libc.so.6 | grep /bin/sh | awk '/system/{line=$4} END{print $1}')
+            else
+                echo "Error: libc.so.6 not found in /lib/x86_64-linux-gnu or /usr/lib64"
+                return 1
+            fi
             ;;
         *)
             echo "Error: $file is not a 32-bit or 64-bit binary"
@@ -130,7 +158,7 @@ find_gadgets() {
         gadget=$(ROPgadget --binary "$file" --only "pop|ret" | grep "pop $reg ; ret" | cut -d' ' -f1)
         if [ -n "$gadget" ]; then
             if [ "$gadgets_found" = false ]; then
-                printf "[*] rop gadgets\n"
+                printf "[*] These rop gadgets were found in %s\n" "${file##*/}"
                 gadgets_found=true
             fi
             printf "pop %s address: %27s\n" "$reg" "$gadget"
@@ -138,7 +166,7 @@ find_gadgets() {
     done
     
     if [ "$gadgets_found" = false ]; then
-        printf "no rop gadgets found\n"
+        printf "[*] No useful rop gadgets found in %s\n" "${file##*/}"
     fi
 }
 
