@@ -42,9 +42,6 @@ sudo -H python3 -m pip install ROPgadget pyfiglet tabulate
 sudo cp ROPcheck.py /usr/local/bin/ROPcheck
 sudo chmod +x /usr/local/bin/ROPcheck
 
-# Clear out any line terminators from Windows Subsystem for Linux
-dos2unix ROPcheck.py
-
 # Add /usr/local/bin to PATH
 if ! grep -q "/usr/local/bin" "$HOME/.bashrc"; then
     echo 'export PATH=$PATH:/usr/local/bin' >> ~/.bashrc
@@ -53,6 +50,9 @@ if ! grep -q "/usr/local/bin" "$HOME/.bashrc"; then
     fi
     echo "Added /usr/local/bin to PATH"
 fi
+
+# Clear out any line terminators from Windows Subsystem for Linux
+dos2unix ROPcheck.py
 
 echo ""
 echo "[] ROPcheck is now installed. You can use it by running 'ROPcheck' in the terminal. []"
