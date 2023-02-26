@@ -36,7 +36,7 @@ elif [ "$PACKAGE_MANAGER" = "pacman" ]; then
     sudo pacman -S python-pip
     sudo pacman -S dos2unix
 fi
-sudo -H python3 -m pip install ROPgadget pyfiglet tabulate
+sudo -H python3 -m pip install ROPgadget pyfiglet tabulate termcolor
 
 # Clear out any line terminators from Windows Subsystem for Linux
 dos2unix ROPcheck.py
