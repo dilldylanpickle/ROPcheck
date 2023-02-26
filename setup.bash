@@ -34,10 +34,10 @@ elif [ "$PACKAGE_MANAGER" = "pacman" ]; then
     sudo pacman -Syu
     sudo pacman -S python-pip
 fi
-sudo -H python3 -m pip install ROPgadget
+sudo -H python3 -m pip install ROPgadget pyfiglet tabulate
 
-# Copy script file to /usr/local/bin
-sudo cp ROPcheck.bash /usr/local/bin/ROPcheck
+# Copy main file to /usr/local/bin
+sudo cp ROPcheck.py /usr/local/bin/ROPcheck
 sudo chmod +x /usr/local/bin/ROPcheck
 
 # Add /usr/local/bin to PATH
@@ -49,5 +49,6 @@ if ! grep -q "/usr/local/bin" "$HOME/.bashrc"; then
     echo "Added /usr/local/bin to PATH"
 fi
 
+echo ""
 echo "[] ROPcheck is now installed. You can use it by running 'ROPcheck' in the terminal. []"
 echo "[] To uninstall, run 'bash ROPcheck.bash uninstall' in the directory where you installed ROPcheck. []"
