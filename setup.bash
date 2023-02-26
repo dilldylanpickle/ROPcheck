@@ -30,15 +30,20 @@ fi
 if [ "$PACKAGE_MANAGER" = "apt" ]; then
     sudo apt-get update
     sudo apt install python3-pip
+    sudo apt-get install dos2unix
 elif [ "$PACKAGE_MANAGER" = "pacman" ]; then
     sudo pacman -Syu
     sudo pacman -S python-pip
+    sudo pacman -S dos2unix
 fi
 sudo -H python3 -m pip install ROPgadget pyfiglet tabulate
 
 # Copy main file to /usr/local/bin
 sudo cp ROPcheck.py /usr/local/bin/ROPcheck
 sudo chmod +x /usr/local/bin/ROPcheck
+
+# Clear out any line terminators from Windows Subsystem for Linux
+dos2unix ROPcheck.py
 
 # Add /usr/local/bin to PATH
 if ! grep -q "/usr/local/bin" "$HOME/.bashrc"; then
