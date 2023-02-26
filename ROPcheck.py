@@ -207,7 +207,7 @@ def main():
     time.sleep(0.69)
 
     # Define the headers for the output table and an empty list to store the data
-    headers = ["File Name", "libc base address", "system address", "/bin/sh address", "Gadgets"]
+    headers = ["File Name", "Libc base address", "System() address", "/bin/sh address", "Gadget Addresses"]
     data = []
 
     # Iterate over each executable file in the current directory and process it
@@ -257,7 +257,7 @@ def main():
                         # Find ROP gadgets for the binary and format them as a string
                         gadget_addresses = find_gadgets(filepath)
                         if gadget_addresses:
-                            gadgets = "\n".join(gadget_addresses.keys())
+                            gadgets = "\n".join([f"{address}: {gadget}" for address, gadget in gadget_addresses.items()])
                             print(f"[+] Found ROP gadgets for {file} ", end="")
                             animate_processing()
                             print()
