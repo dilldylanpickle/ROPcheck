@@ -38,6 +38,9 @@ elif [ "$PACKAGE_MANAGER" = "pacman" ]; then
 fi
 sudo -H python3 -m pip install ROPgadget pyfiglet tabulate
 
+# Clear out any line terminators from Windows Subsystem for Linux
+dos2unix ROPcheck.py
+
 # Copy main file to /usr/local/bin
 sudo cp ROPcheck.py /usr/local/bin/ROPcheck
 sudo chmod +x /usr/local/bin/ROPcheck
@@ -50,9 +53,6 @@ if ! grep -q "/usr/local/bin" "$HOME/.bashrc"; then
     fi
     echo "Added /usr/local/bin to PATH"
 fi
-
-# Clear out any line terminators from Windows Subsystem for Linux
-dos2unix ROPcheck.py
 
 echo ""
 echo "[] ROPcheck is now installed. You can use it by running 'ROPcheck' in the terminal. []"
