@@ -1,6 +1,6 @@
 # ROPcheck
 
-ROPcheck is a linux tool that simplifies identifying useful addresses such as libc, system, /bin/sh, and more. Currently, it is supported on Ubuntu 20.04 and Arch Linux distributions.
+ROPcheck is a custom tool designed for Linux exploit developers that leverages Return Oriented Programming techniques to help create exploits for ELF binaries. Currently, it is supported on Ubuntu 20.04 and Arch Linux distributions.
 
 ![Demo!](/demo/animated_demo_v6.gif)
 
