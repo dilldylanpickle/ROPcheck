@@ -36,7 +36,7 @@ elif [ "$PACKAGE_MANAGER" = "pacman" ]; then
     sudo pacman -S python-pip
     sudo pacman -S dos2unix
 fi
-sudo -H python3 -m pip install ROPgadget pyfiglet tabulate termcolor
+sudo -H python3 -m pip install ROPgadget pyfiglet tabulate termcolor progress
 
 # Clear out any line terminators from Windows Subsystem for Linux
 dos2unix ROPcheck.py
@@ -54,6 +54,7 @@ if ! grep -q "/usr/local/bin" "$HOME/.bashrc"; then
     echo "Added /usr/local/bin to PATH"
 fi
 
+echo ""
 echo ""
 echo "[] ROPcheck is now installed. You can use it by running 'ROPcheck' in the terminal. []"
 echo "[] To uninstall, run 'bash ROPcheck.bash uninstall' in the directory where you installed ROPcheck. []"
