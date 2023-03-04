@@ -7,7 +7,7 @@
 # ROPcheck is a Python tool that displays useful information for performing return oriented programming
 # It can be used for binary exploitation and vulnerability research.
 #
-# As the creator of this tool, I wrote the initial code and have been actively maintaining it.
+# As the creator of this tool, I wrote the initial code on a Friday might and add stuff here and there.
 # The tool has been tested on Linux and macOS operating systems (Also supported on WSL).
 # Any questions or issues with the tool can be directed to me via GitHub.
 #
@@ -21,7 +21,7 @@
 #   - Termcolor (https://pypi.org/project/termcolor/)
 #   - Progress (https://pypi.org/project/progress/)
 # 
-# Example Usage: $ Ropcheck
+# Example Usage: $ ROPcheck
 #
 # This tool is licensed under the MIT License. See LICENSE file for more information.
 
@@ -68,7 +68,6 @@ def get_bitness(file):
         raise RuntimeError(f"Failed to get the bitness of {file}: {e}")
 
 # Define a function called 'get_bitness' that takes a filename as input and returns a libc base address
-
 def find_libc(file):
     # Check the bitness of the binary file
     try:
